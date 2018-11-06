@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Test</h3>
+<a href="/restart" class="btn btn-primary">
+  <i class="glyphicon"></i>
+  restart
+</a>
+
+{% for button in buttons %}
+<div class="media">
+  <a href="/buttons/{{button.id}}">
+    <div class="media-left">
+      {% if button.imageUrl %}
+        <img src="{{button.imageUrl}}">
+      {% else %}
+        <img src="http://placekitten.com/g/128/200">
+      {% endif %}
+    </div>
+  </a>
+</div>
+{% else %}
+<div>
+	<img src="<img src="http://placekitten.com/g/128/100">
+</div>
+{% endfor %}
+
+{% endblock %}
