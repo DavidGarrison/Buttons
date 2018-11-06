@@ -1,4 +1,3 @@
-import sys
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -19,7 +18,6 @@ def from_sql(row):
 
 class Button(db.Model):
     __tablename__ = 'buttons'
-    print('Model Code', file=sys.stdout)
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
@@ -38,10 +36,7 @@ def list(limit=10, cursor=None):
     cursor = int(cursor) if cursor else 0
     query = (Button.query
              .order_by(Button.name))
-    print('Created Query')
-    print(query)
     buttons = builtin_list(map(from_sql, query.all()))
-    print('Ran Query', file=sys.stdout)
     next_page = cursor + limit if len(buttons) == limit else None
 
     return (buttons, next_page)
