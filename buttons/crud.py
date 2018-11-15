@@ -1,4 +1,3 @@
-import sys
 from buttons import get_model, oauth2, storage
 from flask import Blueprint, current_app, redirect, render_template, request, \
     session, url_for
@@ -24,14 +23,24 @@ def upload_image_file(file):
 
     return public_url
 
+@crud.route("/<comparisonId>/<buttonId>")
+def cont(comparisonId, buttonId):
+    buttons = get_model().list(int(comparisonId) + 1)
+
+    if comparisonId == 36:
+        return render_template(
+            "end.html")
+    
+    return render_template(
+        "list.html",
+        buttons=buttons)
+    
 @crud.route("/")
 def list():
-    token = request.args.get('page_token', None)
-    if token:
-        token = token.encode('utf-8')
+    buttons = get_model().list()#comparison = comparisonid
 
-    buttons, next_page_token = get_model().list(cursor=token)
-
+    #if end then return render_template("end.html"
+    
     return render_template(
         "list.html",
         buttons=buttons)

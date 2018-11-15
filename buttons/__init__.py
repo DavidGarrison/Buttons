@@ -43,13 +43,13 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
 
     # Register the CRUD blueprint.
     from .crud import crud
-    app.register_blueprint(crud, url_prefix='/')
+    app.register_blueprint(crud, url_prefix='/buttons')
 
     # Add a default root route.
     @app.route("/")
     def index():
         return redirect(url_for('crud.list'))
-
+    
     # Add an error handler. This is useful for debugging the live application,
     # however, you should disable the output of the exception for production
     # applications.

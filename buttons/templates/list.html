@@ -3,27 +3,27 @@
 {% block content %}
 
 <h3>Test</h3>
-<a href="/restart" class="btn btn-primary">
+<a href="/" class="btn btn-primary">
   <i class="glyphicon"></i>
   restart
 </a>
 
-{% for button in buttons %}
 <div class="media">
-  <a href="/buttons/{{button.id}}">
-    <div class="media-left">
-      {% if button.imageUrl %}
-        <img src="{{button.imageUrl}}">
-      {% else %}
-        <img src="http://placekitten.com/g/128/200">
-      {% endif %}
-    </div>
-  </a>
+  <span style="float:left">
+    <!--<a href="/buttons/{{buttons.sessionId}}/{{buttons.comparisonId}}/{{buttons.leftButtonId}}">-->
+    <a href="/buttons/{{buttons.comparisonId}}/{{buttons.leftButtonId}}">
+      <div class="media-left">
+        <img src="{{buttons.leftButtonImageUrl}}">
+      </div>
+    </a>
+  </span>
+  <span style="padding-left:200px">
+    <a href="/buttons/{{buttons.comparisonId}}/{{buttons.rightButtonId}}">
+      <div class="media-left">
+        <img src="{{buttons.rightButtonImageUrl}}">
+      </div>
+    </a>
+  </span>
 </div>
-{% else %}
-<div>
-	<img src="<img src="http://placekitten.com/g/128/100">
-</div>
-{% endfor %}
 
 {% endblock %}

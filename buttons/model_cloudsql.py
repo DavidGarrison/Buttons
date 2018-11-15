@@ -26,20 +26,36 @@ class Button(db.Model):
     def __repr__(self):
         return "<Button %r>" % self.name
 
+    #comparisonId = db.Column(db.Integer, primary_key=True)
+    #leftButtonId = db.Column(db.Integer)
+    #leftButtonImageUrl = db.Column(db.String(255))
+    #rightButtonId = db.Column(db.Integer)
+    #rightButtonImageUrl = db.Column(db.String(255))
+
+        
 def read(id):
     result = Button.query.get(id)
     if not result:
         return None
     return from_sql(result)
 
-def list(limit=10, cursor=None):
-    cursor = int(cursor) if cursor else 0
-    query = (Button.query
-             .order_by(Button.name))
-    buttons = builtin_list(map(from_sql, query.all()))
-    next_page = cursor + limit if len(buttons) == limit else None
+def list(comparison = 1):
+    query = '''select c.id as comparisonId, bl.id as leftButtonId, bl.imageUrl as leftButtonImageUrl, br.id as rightButtonId, br.imageUrl as rightButtonImageUrl
+            from comparisons c
+            join buttons bl
+                on c.leftButtonName = bl.name
+            join buttons br
+                on c.rightButtonName = br.name
+            where c.order = {0}'''.format(comparison)
+    result = db.engine.execute(query)
+    
+    buttons = {}
+    
+    for row in result:
+        for tup in row.items():
+            buttons = {**buttons, **{tup[0]: tup[1]}}
 
-    return (buttons, next_page)
+    return (buttons)
 	
 #class Book(db.Model):
 #    __tablename__ = 'books'
