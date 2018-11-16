@@ -40,7 +40,7 @@ def read(id):
     return from_sql(result)
 
 def list(comparison = 1):
-    query = '''select c.id as comparisonId, bl.id as leftButtonId, bl.imageUrl as leftButtonImageUrl, br.id as rightButtonId, br.imageUrl as rightButtonImageUrl
+    query = '''select c.id as comparisonId, bl.id as leftButtonId, bl.imageUrl as leftButtonImageUrl, bl.pressedImageUrl as leftButtonPressedImageUrl, br.id as rightButtonId, br.imageUrl as rightButtonImageUrl, br.pressedImageUrl as rightButtonPressedImageUrl
             from comparisons c
             join buttons bl
                 on c.leftButtonName = bl.name
