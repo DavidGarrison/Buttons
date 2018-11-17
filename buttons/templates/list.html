@@ -10,16 +10,15 @@
 
 <div class="media">
   <span style="float:left">
-    <!--<a href="/buttons/{{buttons.sessionId}}/{{buttons.comparisonId}}/{{buttons.leftButtonId}}">-->
       <div class="media-left">
-        <a href="/buttons/{{buttons.comparisonId}}/{{buttons.leftButtonId}}" onMouseOver="document.leftButton.src='{{buttons.leftButtonPressedImageUrl}}';" onMouseOut="document.leftButton.src='{{buttons.leftButtonImageUrl}}';">
+        <a href="/buttons/{{sessionId}}/{{buttons.comparisonId}}/{{buttons.leftButtonId}}" onMouseOver="document.leftButton.src='{{buttons.leftButtonPressedImageUrl}}';" onMouseOut="document.leftButton.src='{{buttons.leftButtonImageUrl}}';">
         <img src="{{buttons.leftButtonImageUrl}}" name="leftButton">
       </div>
     </a>
   </span>
   <span style="padding-left:200px">
       <div class="media-left">
-        <a href="/buttons/{{buttons.comparisonId}}/{{buttons.rightButtonId}}" onMouseOver="document.rightButton.src='{{buttons.rightButtonPressedImageUrl}}';" onMouseOut="document.rightButton.src='{{buttons.rightButtonImageUrl}}';">
+        <a href="/buttons/{{sessionId}}/{{buttons.comparisonId}}/{{buttons.rightButtonId}}" onMouseOver="document.rightButton.src='{{buttons.rightButtonPressedImageUrl}}';" onMouseOut="document.rightButton.src='{{buttons.rightButtonImageUrl}}';">
         <img src="{{buttons.rightButtonImageUrl}}" name="rightButton">
       </div>
     </a>

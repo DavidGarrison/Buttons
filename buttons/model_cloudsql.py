@@ -33,11 +33,11 @@ class Button(db.Model):
     #rightButtonImageUrl = db.Column(db.String(255))
 
         
-def read(id):
-    result = Button.query.get(id)
-    if not result:
-        return None
-    return from_sql(result)
+#def read(id):
+#    result = Button.query.get(id)
+#    if not result:
+#        return None
+#    return from_sql(result)
 
 def list(comparison = 1):
     query = '''select c.id as comparisonId, bl.id as leftButtonId, bl.imageUrl as leftButtonImageUrl, bl.pressedImageUrl as leftButtonPressedImageUrl, br.id as rightButtonId, br.imageUrl as rightButtonImageUrl, br.pressedImageUrl as rightButtonPressedImageUrl
@@ -56,7 +56,35 @@ def list(comparison = 1):
             buttons = {**buttons, **{tup[0]: tup[1]}}
 
     return (buttons)
-	
+
+def buttonPress(sessionId, comparisonId, buttonId):
+    query = '''INSERT INTO trials (sessionId, comparisonId, buttonPressedId, datetime, durationInSeconds)
+                SELECT
+                {0},
+                {1},
+                {2},
+                now(),
+                timestampdiff(second,IFNULL((select datetime from trials where sessionId = {0} and comparisonId = {1} - 1),(select startdatetime from session where id = {0})) , now());'''.format(sessionId, comparisonId, buttonId)
+                
+    db.engine.execute(query)
+    
+def createSession():
+    queryInsert = 'insert into session(startdatetime) values (now());'
+    querySelect = 'select last_insert_id();'
+    
+    db.engine.execute(queryInsert)
+    
+    result = db.engine.execute(querySelect)
+    
+    session = 0
+    
+    for row in result:
+        for tup in row.items():
+            session = tup[1]
+
+    return session
+
+
 #class Book(db.Model):
 #    __tablename__ = 'books'
 #
