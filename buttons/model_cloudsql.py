@@ -39,14 +39,25 @@ class Button(db.Model):
 #        return None
 #    return from_sql(result)
 
-def list(comparison = 1):
-    query = '''select c.id as comparisonId, bl.id as leftButtonId, bl.imageUrl as leftButtonImageUrl, bl.pressedImageUrl as leftButtonPressedImageUrl, br.id as rightButtonId, br.imageUrl as rightButtonImageUrl, br.pressedImageUrl as rightButtonPressedImageUrl
+def list(sessionId):
+    query = '''select c.id as comparisonId,
+                bl.id as leftButtonId,
+                bl.imageUrl as leftButtonImageUrl,
+                bl.pressedImageUrl as leftButtonPressedImageUrl,
+                br.id as rightButtonId,
+                br.imageUrl as rightButtonImageUrl,
+                br.pressedImageUrl as rightButtonPressedImageUrl
             from comparisons c
             join buttons bl
                 on c.leftButtonName = bl.name
             join buttons br
                 on c.rightButtonName = br.name
-            where c.order = {0}'''.format(comparison)
+            where c.order = IFNULL((
+                select max(c.order) + 1
+                from trials t
+                join comparisons c on t.comparisonId = c.id
+                where t.sessionId = {0})
+                ,1)'''.format(sessionId)
     result = db.engine.execute(query)
     
     buttons = {}
@@ -60,11 +71,13 @@ def list(comparison = 1):
 def buttonPress(sessionId, comparisonId, buttonId):
     query = '''INSERT INTO trials (sessionId, comparisonId, buttonPressedId, datetime, durationInSeconds)
                 SELECT
-                {0},
-                {1},
-                {2},
-                now(),
-                timestampdiff(second,IFNULL((select datetime from trials where sessionId = {0} and comparisonId = {1} - 1),(select startdatetime from session where id = {0})) , now());'''.format(sessionId, comparisonId, buttonId)
+					{0},
+					{1},
+					{2},
+					now(),
+					timestampdiff(second,IFNULL((select datetime from trials where sessionId = {0} and comparisonId = {1} - 1 limit 1),(select startdatetime from session where id = {0})) , now())
+				WHERE NOT EXISTS (
+					SELECT 1 FROM trials where sessionId = {0} and comparisonId = {1});'''.format(sessionId, comparisonId, buttonId)
                 
     db.engine.execute(query)
     

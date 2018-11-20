@@ -9,20 +9,26 @@
 </a>
 
 <div class="media">
-  <span style="float:left">
+  <div style="float:left">
+    <form action="/buttons" method="post">
+      <input type="hidden" name="sessionId" value="{{sessionId}}"/>
+      <input type="hidden" name="comparisonId" value="{{buttons.comparisonId}}"/>
+      <input type="hidden" name="buttonId" value="{{buttons.leftButtonId}}"/>
       <div class="media-left">
-        <a href="/buttons/{{sessionId}}/{{buttons.comparisonId}}/{{buttons.leftButtonId}}" onMouseOver="document.leftButton.src='{{buttons.leftButtonPressedImageUrl}}';" onMouseOut="document.leftButton.src='{{buttons.leftButtonImageUrl}}';">
-        <img src="{{buttons.leftButtonImageUrl}}" name="leftButton">
+        <input type="image" src="{{buttons.leftButtonImageUrl}}" onMouseOver="this.src='{{buttons.leftButtonPressedImageUrl}}';" onMouseOut="this.src='{{buttons.leftButtonImageUrl}}';" name="leftButton"/>
       </div>
-    </a>
-  </span>
-  <span style="padding-left:200px">
+    </form>
+  </div>
+  <div style="padding-left:200px; float:left"> 
+    <form action="/buttons" method="post">
+      <input type="hidden" name="sessionId" value="{{sessionId}}">
+      <input type="hidden" name="comparisonId" value="{{buttons.comparisonId}}">
+      <input type="hidden" name="buttonId" value="{{buttons.rightButtonId}}">
       <div class="media-left">
-        <a href="/buttons/{{sessionId}}/{{buttons.comparisonId}}/{{buttons.rightButtonId}}" onMouseOver="document.rightButton.src='{{buttons.rightButtonPressedImageUrl}}';" onMouseOut="document.rightButton.src='{{buttons.rightButtonImageUrl}}';">
-        <img src="{{buttons.rightButtonImageUrl}}" name="rightButton">
+        <input type="image" src="{{buttons.rightButtonImageUrl}}" onMouseOver="this.src='{{buttons.rightButtonPressedImageUrl}}';" onMouseOut="this.src='{{buttons.rightButtonImageUrl}}';" name="rightButton">
       </div>
-    </a>
-  </span>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

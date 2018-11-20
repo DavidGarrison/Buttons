@@ -4,13 +4,19 @@ from flask import Blueprint, current_app, redirect, render_template, request, \
 
 crud = Blueprint('crud', __name__)
 
-@crud.route("/<sessionId>/<comparisonId>/<buttonId>")
-def cont(sessionId, comparisonId, buttonId):
+#@crud.route("/<sessionId>/<comparisonId>/<buttonId>")
+@crud.route("", methods=['POST'])
+def cont():
+    sessionId = request.form['sessionId']
+    comparisonId = request.form['comparisonId']
+    buttonId = request.form['buttonId']
+    
     get_model().buttonPress(int(sessionId), int(comparisonId), int(buttonId))
 
-    buttons = get_model().list(int(comparisonId) + 1)
+    buttons = get_model().list(sessionId)
 
     print('completed comparison {0}'.format(comparisonId))
+    print('chose button {0}'.format(buttonId))
     
     if comparisonId == '36':
         #end session
@@ -22,13 +28,13 @@ def cont(sessionId, comparisonId, buttonId):
         buttons=buttons,
         sessionId=sessionId)
     
-@crud.route("/")
+@crud.route("/", methods=['GET'])
 def list():
     sessionId = get_model().createSession()
     
     print('starting session {0}'.format(sessionId))
     
-    buttons = get_model().list()
+    buttons = get_model().list(sessionId)
     
     return render_template(
         "list.html",
