@@ -1,4 +1,4 @@
-from buttons import get_model, oauth2, storage
+from buttons import get_model
 from flask import Blueprint, current_app, redirect, render_template, request, \
     session, url_for
 

@@ -41,21 +41,3 @@ if os.environ.get('GAE_INSTANCE'):
     SQLALCHEMY_DATABASE_URI = LIVE_SQLALCHEMY_DATABASE_URI
 else:
     SQLALCHEMY_DATABASE_URI = LOCAL_SQLALCHEMY_DATABASE_URI
-
-# Google Cloud Storage and upload settings.
-CLOUD_STORAGE_BUCKET = 'bellow-garrison'
-
-# OAuth2 configuration.
-# This can be generated from the Google Developers Console at
-# https://console.developers.google.com/project/_/apiui/credential.
-# Note that you will need to add all URLs that your application uses as
-# authorized redirect URIs. For example, typically you would add the following:
-#
-#  * http://localhost:8080/oauth2callback
-#  * https://<your-app-id>.appspot.com/oauth2callback.
-#
-# If you receive a invalid redirect URI error review you settings to ensure
-# that the current URI is allowed.
-GOOGLE_OAUTH2_CLIENT_ID = \
-    '536569692554-9phesnj7lvv161fbmua7r5r6jcshl2ut.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET = 'wWK-Bxa3w7qGYrVPaRBBbjDQ'
