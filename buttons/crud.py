@@ -4,7 +4,10 @@ from flask import Blueprint, current_app, redirect, render_template, request, \
 
 crud = Blueprint('crud', __name__)
 
-#@crud.route("/<sessionId>/<comparisonId>/<buttonId>")
+@crud.route("/start", methods=['GET'])
+def start():
+    return render_template("start.html")
+
 @crud.route("", methods=['POST'])
 def cont():
     sessionId = request.form['sessionId']
@@ -20,8 +23,7 @@ def cont():
     
     if comparisonId == '36':
         #end session
-        return render_template(
-            "end.html")
+        return render_template("end.html")
     
     return render_template(
         "list.html",
