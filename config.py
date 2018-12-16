@@ -6,7 +6,7 @@ SECRET_KEY = '\xca\xbc>\x95\x85+h\x0e\xb9!\x05\xff\xf3@6\xf2\x9b9\xabm\x85\xbd\x
 DATA_BACKEND = 'cloudsql'
 
 # Google Cloud Project ID.
-PROJECT_ID = 'bellow-garrison'
+PROJECT_ID = 'people-are-pigeons'
 
 # CloudSQL & SQLAlchemy configuration
 CLOUDSQL_USER = 'erik'
@@ -14,7 +14,7 @@ CLOUDSQL_PASSWORD = 'sucks'
 CLOUDSQL_DATABASE = 'buttons'
 
 # Must also be updated in app.yaml.
-CLOUDSQL_CONNECTION_NAME = 'bellow-garrison:us-central1:porygon'
+CLOUDSQL_CONNECTION_NAME = 'people-are-pigeons:us-central1:my-instance'
 
 # The CloudSQL proxy is used locally to connect to the cloudsql instance.
 # To start the proxy, use:

@@ -6,4 +6,4 @@ runtime_config:
     python_version: 3
 
 beta_settings:
-    cloud_sql_instances: "bellow-garrison:us-central1:porygon"
+    cloud_sql_instances: "people-are-pigeons:us-central1:my-instance"
