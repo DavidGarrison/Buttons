@@ -8,6 +8,10 @@ crud = Blueprint('crud', __name__)
 def start():
     return render_template("start.html")
 
+@crud.route("/end", methods=['GET'])
+def end():
+    return render_template("end.html")
+
 @crud.route("", methods=['POST'])
 def cont():
     sessionId = request.form['sessionId']
