@@ -25,7 +25,7 @@ def cont():
     print('completed comparison {0}'.format(comparisonId))
     print('chose button {0}'.format(buttonId))
     
-    if comparisonId == '36':
+    if comparisonId == '72':
         #end session
         return render_template("end.html")
     
